@@ -1,5 +1,5 @@
 [project]
-name = "sql-game"
+name = "sql-sleuth"
 version = "1.0.0"
 description = "Modular SQL mystery game engine"
 readme = "README.md"

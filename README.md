@@ -1,4 +1,4 @@
-# SQL Game Engine v1.0.0
+# SQL Sleuth v1.0.0
 
 A modular SQL mystery game for teaching database querying through interactive storytelling.
 
@@ -22,7 +22,7 @@ Open http://localhost:8000 in your browser.
 ## Project Structure
 
 ```
-SQL-Game/
+SQL-Sleuth/
 ├── pyproject.toml
 ├── DESIGN.md              # This design document
 ├── README.md

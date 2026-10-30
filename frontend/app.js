@@ -1,5 +1,5 @@
 /**
- * SQL Detective - Main Application Logic
+ * SQL Sleuth - Main Application Logic
  * Game-like interface for SQL mystery solving
  */
 let currentModule = null;
