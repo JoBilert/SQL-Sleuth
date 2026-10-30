@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Detective — Case Files</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/editor/editor.main.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Atmospheric particles -->
+    <div id="particles" aria-hidden="true"></div>
+
+    <!-- Case Header -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <h1 id="module-title">SQL Detective</h1>
+            <span id="module-subtitle" class="case-subtitle">Case Management System</span>
+            <span id="module-desc" class="muted"></span>
+        </div>
+        <div class="topbar-right">
+            <div class="progress-container">
+                <div class="progress" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                <span class="progress-label">EVIDENCE</span>
+                <span id="progress-text">0 / 0</span>
+            </div>
+            <button id="solve-btn" class="btn btn-primary" disabled title="Fall abschließen">📋 ABGABE</button>
+        </div>
+    </header>
+
+    <main class="main-grid">
+        <!-- Case File Panel -->
+        <aside class="story-panel" id="story-panel">
+            <!-- Evidence Tabs -->
+            <div class="fragment-tabs" id="fragment-tabs" role="tablist"></div>
+            
+            <!-- Case Notes Content -->
+            <div class="fragment-content" id="fragment-content" role="tabpanel"></div>
+            
+            <!-- Database Schema Panel -->
+            <div class="erd-panel" id="erd-panel">
+                <button class="erd-toggle" id="erd-toggle" aria-expanded="false" aria-controls="erd-content">
+                    <span>Datenbank-Schema</span>
+                    <span class="erd-toggle-icon">▼</span>
+                </button>
+                <div class="erd-content" id="erd-content" hidden>
+                    <pre id="erd-diagram" class="erd-diagram"></pre>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Investigation Terminal -->
+        <section class="editor-panel">
+            <div class="editor-toolbar">
+                <span class="toolbar-label">
+                    <span id="terminal-prompt">>_</span>
+                    <span>QUERY TERMINAL</span>
+                </span>
+                <div class="toolbar-actions">
+                    <button id="hint-btn" class="btn btn-ghost" disabled title="Hinweis anfordern (kostet Punkte)">💡 INTEL</button>
+                    <button id="clear-btn" class="btn btn-ghost" title="Terminal leeren">CLEAR</button>
+                    <button id="execute-btn" class="btn btn-primary" title="Ausführen (Strg+Enter)">▶ EXECUTE</button>
+                </div>
+            </div>
+            <div id="editor-container" class="editor-container"></div>
+            <div class="results-panel" id="results-panel" hidden>
+                <div class="results-header">
+                    <div class="results-meta">
+                        <span id="results-meta" class="muted"></span>
+                        <span id="unlock-toast" class="toast" hidden>🔓 NEUES BEWEISSTÜCK FREIGESCHALTET</span>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table id="results-table">
+                        <thead id="results-head"></thead>
+                        <tbody id="results-body"></tbody>
+                    </table>
+                </div>
+                <div id="results-empty" class="results-empty" hidden>KEINE TREFFER IN DER DATENBANK</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Case Selection Modal -->
+    <dialog id="module-modal" class="modal">
+        <form method="dialog">
+            <h2>AKTE AUSWÄHLEN</h2>
+            <span class="case-tagline">Wählen Sie einen Fall zur Untersuchung</span>
+            <div id="module-list" class="module-list"></div>
+            <menu class="modal-actions">
+                <button value="cancel" class="btn btn-ghost">ABBRECHEN</button>
+            </menu>
+        </form>
+    </dialog>
+
+    <!-- Case Resolution Modal -->
+    <dialog id="solve-modal" class="modal">
+        <form method="dialog">
+            <h2 id="solve-title">FALL GELÖST</h2>
+            <div id="solve-content" class="solve-content"></div>
+            <menu class="modal-actions">
+                <button id="solve-close" class="btn btn-primary" value="default">AKTE SCHLIESSEN</button>
+            </menu>
+        </form>
+    </dialog>
+
+    <!-- Intel Toast -->
+    <div id="hint-toast" class="toast toast-hint" hidden></div>
+
+    <!-- Unlock Notification -->
+    <div id="unlock-notification" class="unlock-notification" hidden></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+    <script src="/static/editor.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "id": "fall_01",
+  "title": "Der verschwundene Schlüssel",
+  "description": "Ein Kriminalfall im viktorianischen London. Lord Blackwells Studierzimmerschlüssel ist verschwunden — und mit ihm der Zugang zum geheimen Tresor.",
+  "author": "Lehrer Demo",
+  "difficulty": 2,
+  "estimated_time_min": 30,
+  "start_fragment": "01_intro",
+  "fragments": {
+    "01_intro": { "unlocked_by": null, "title": "Einleitung" },
+    "02_witness": { "unlocked_by": "q_witness", "title": "Zeugenaussage" },
+    "03_fingerprint": { "unlocked_by": "q_fingerprint", "title": "Fingerabdruck" },
+    "04_motive": { "unlocked_by": "q_motive", "title": "Motiv" },
+    "05_solution": { "unlocked_by": null, "title": "Lösung" }
+  },
+  "queries": {
+    "q_witness": {
+      "description": "Finde den Zeugen, der zur Tatzeit in der Nähe war",
+      "validation": {
+        "type": "pattern",
+        "pattern": "SELECT * FROM beweise JOIN personen ON beweise.person_id = personen.id WHERE zeit BETWEEN '20:00' AND '20:30' AND raum_id = 1"
+      },
+      "hint": "Verbinde 'beweise' mit 'personen' und filtere nach Tatzeit (20:00-20:30) im Studierzimmer (raum_id = 1)"
+    },
+    "q_fingerprint": {
+      "description": "Finde den Fingerabdruck auf dem Brief",
+      "validation": {
+        "type": "exact_columns",
+        "required": ["person_id", "name", "fingerprint_match"]
+      },
+      "hint": "Suche in 'beweise' nach Typ 'fingerprint' und verbinde mit 'personen' für den Namen"
+    },
+    "q_motive": {
+      "description": "Finde das Motiv des Täters",
+      "validation": {
+        "type": "pattern",
+        "pattern": "SELECT * FROM personen WHERE rolle = 'butler' AND schulden > 0"
+      },
+      "hint": "Der Butler hat Spielschulden — suche in 'personen' nach rolle='butler' und schulden > 0"
+    }
+  },
+  "success_condition": "all_fragments_unlocked"
+}
